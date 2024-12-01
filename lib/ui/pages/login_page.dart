@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vinyl_allosa/services/auth_services.dart';
-import '../../../core/utils/form_utils.dart';
+import 'package:vinyl_allosa/services/shared_preferences.dart';  // Importa el servicio
 
 class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final SharedPreferencesService _prefsService = SharedPreferencesService();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,6 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Logo o título
                 Text(
                   'Bienvenido a VinylApp',
                   textAlign: TextAlign.center,
@@ -69,11 +68,12 @@ class LoginPage extends StatelessWidget {
                   onPressed: () async {
                     final email = emailController.text;
                     final password = passwordController.text;
-                    if (FormUtils.validateEmail(email) == null &&
-                        FormUtils.validatePassword(password) == null) {
-                      await AuthService().signInWithEmail(email, password);
-                      Navigator.pushReplacementNamed(context, '/home');
-                    }
+
+                    // Guardar los datos en SharedPreferences
+                    await _prefsService.saveString('email', email);
+                    await _prefsService.saveString('password', password);
+
+                    Navigator.pushReplacementNamed(context, '/home');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blueGrey[800],

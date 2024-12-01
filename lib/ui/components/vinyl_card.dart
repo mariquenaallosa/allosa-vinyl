@@ -26,7 +26,7 @@ class VinylCard extends StatelessWidget {
           children: [
             // Imagen cuadrada y más pequeña
             Container(
-              width: double.infinity, // Ocupa todo el ancho del padre
+              width: double.infinity,
               height: 100, // Imagen cuadrada más pequeña
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(15.0)),

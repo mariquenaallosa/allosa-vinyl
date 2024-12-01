@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "1069885073793",
+    "firebase_url": "https://allosa-vinyl-default-rtdb.firebaseio.com",
+    "project_id": "allosa-vinyl",
+    "storage_bucket": "allosa-vinyl.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1069885073793:android:0cb3fc1d3aeb4b34ce6080",
+        "android_client_info": {
+          "package_name": "com.vinyl.a"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_DaS6a7vBhfl691bgD-lCBqFeES21FSk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1069885073793:android:f77d2c58d2ffb578ce6080",
+        "android_client_info": {
+          "package_name": "com.vinyl.allosa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_DaS6a7vBhfl691bgD-lCBqFeES21FSk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

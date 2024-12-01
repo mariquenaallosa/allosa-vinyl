@@ -21,97 +21,105 @@ class VinylCard extends StatelessWidget {
         onTap: () {
           Navigator.pushNamed(context, '/details', arguments: vinyl);
         },
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Imagen de portada (más grande)
-              Container(
-                width: 150,  // Imagen más grande
-                height: 150, // Imagen más grande
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      vinyl.imageUrl ?? 'https://via.placeholder.com/150?text=No+Image', // URL genérica si no hay imagen
-                    ),
-                    fit: BoxFit.cover,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Imagen cuadrada y más pequeña
+            Container(
+              width: double.infinity, // Ocupa todo el ancho del padre
+              height: 100, // Imagen cuadrada más pequeña
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(15.0)),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    vinyl.imageUrl ?? 'https://via.placeholder.com/150?text=No+Image',
                   ),
+                  fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox(width: 12),
-              // Información del vinilo
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Título
-                    Text(
-                      vinyl.title,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+            ),
+            const SizedBox(height: 12),
+            // Información del vinilo
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Título
+                  Text(
+                    vinyl.title,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(height: 4),
-                    // Artista
-                    Text(
-                      vinyl.artist,
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 14,
-                      ),
+                  ),
+                  const SizedBox(height: 4),
+                  // Artista
+                  Text(
+                    vinyl.artist,
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
                     ),
-                    const SizedBox(height: 8),
-                    // Año de lanzamiento
-                    if (vinyl.year != null)
-                      Text(
-                        'Año: ${vinyl.year}',
-                        style: TextStyle(
-                          color: Colors.white54,
-                          fontSize: 12,
-                        ),
-                      ),
-                    const SizedBox(height: 8),
-                    // Código del vinilo
+                  ),
+                  const SizedBox(height: 8),
+                  // Año de lanzamiento
+                  if (vinyl.year != null)
                     Text(
-                      'Código: ${vinyl.code}',
+                      'Año: ${vinyl.year}',
                       style: TextStyle(
                         color: Colors.white54,
                         fontSize: 12,
                       ),
                     ),
-                  ],
-                ),
+                  const SizedBox(height: 8),
+                  // Código del vinilo
+                  Text(
+                    'Código: ${vinyl.code}',
+                    style: TextStyle(
+                      color: Colors.white54,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
               ),
-              // Column with icons (Ver Detalles, Editar, Eliminar)
-              Column(
-                children: [
-                  // Ver Detalles
-                  IconButton(
-                    icon: Icon(Icons.remove_red_eye, color: Colors.blue),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/details', arguments: vinyl);
-                    },
-                  ),
-                  // Editar
-                  IconButton(
-                    icon: Icon(Icons.edit, color: Colors.green),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/edit', arguments: vinyl);
-                    },
-                  ),
-                  // Eliminar
-                  IconButton(
-                    icon: Icon(Icons.delete, color: Colors.red),
-                    onPressed: () {
-                      // Confirmación antes de eliminar
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
+            ),
+            // Iconos en la parte inferior
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // Ver Detalles
+                IconButton(
+                  icon: Icon(Icons.remove_red_eye, color: Colors.white),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/details', arguments: vinyl);
+                  },
+                ),
+                // Editar
+                IconButton(
+                  icon: Icon(Icons.edit, color: Colors.white),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/edit', arguments: vinyl);
+                  },
+                ),
+                // Eliminar
+                IconButton(
+                  icon: Icon(Icons.delete, color: Colors.white),
+                  onPressed: () {
+                    // Confirmación antes de eliminar
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Theme(
+                          data: ThemeData.dark().copyWith(
+                            dialogBackgroundColor: Colors.grey[850],
+                            textTheme: TextTheme(
+                              bodyLarge: TextStyle(color: Colors.white),
+                              labelLarge: TextStyle(color: Colors.blue),
+                            ),
+                          ),
+                          child: AlertDialog(
                             title: Text('Eliminar Vinilo'),
                             content: Text('¿Estás seguro de que deseas eliminar este vinilo?'),
                             actions: <Widget>[
@@ -132,15 +140,16 @@ class VinylCard extends StatelessWidget {
                                 child: Text('Eliminar'),
                               ),
                             ],
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+          ],
         ),
       ),
     );

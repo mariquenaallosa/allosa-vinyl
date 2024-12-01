@@ -24,19 +24,44 @@ class VinylCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Imagen cuadrada y más pequeña
-            Container(
-              width: double.infinity,
-              height: 100, // Imagen cuadrada más pequeña
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(15.0)),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    vinyl.imageUrl ?? 'https://via.placeholder.com/150?text=No+Image',
+            // Stack para colocar la etiqueta sobre la imagen
+            Stack(
+              children: [
+                // Imagen cuadrada
+                Container(
+                  width: double.infinity,
+                  height: 350,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(15.0)),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        vinyl.imageUrl ?? 'https://via.placeholder.com/150?text=No+Image',
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  fit: BoxFit.cover,
                 ),
-              ),
+                // Código del vinilo como un tag en la esquina superior derecha
+                Positioned(
+                  top: 10.0,
+                  right: 10.0,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Text(
+                      '${vinyl.code}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 12),
             // Información del vinilo
@@ -50,7 +75,7 @@ class VinylCard extends StatelessWidget {
                     vinyl.title,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -60,28 +85,20 @@ class VinylCard extends StatelessWidget {
                     vinyl.artist,
                     style: TextStyle(
                       color: Colors.white70,
-                      fontSize: 14,
+                      fontSize: 16,
                     ),
                   ),
                   const SizedBox(height: 8),
                   // Año de lanzamiento
                   if (vinyl.year != null)
                     Text(
-                      'Año: ${vinyl.year}',
+                      '${vinyl.year}',
                       style: TextStyle(
                         color: Colors.white54,
-                        fontSize: 12,
+                        fontSize: 16,
                       ),
                     ),
                   const SizedBox(height: 8),
-                  // Código del vinilo
-                  Text(
-                    'Código: ${vinyl.code}',
-                    style: TextStyle(
-                      color: Colors.white54,
-                      fontSize: 12,
-                    ),
-                  ),
                 ],
               ),
             ),

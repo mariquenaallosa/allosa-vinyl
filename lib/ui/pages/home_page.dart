@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> _loadVinyls() async {
     try {
       final vinyls = await dbRepository.getVinyls();
+      vinyls.sort((a, b) => a.code.compareTo(b.code));
       setState(() {
         allVinyls = vinyls;
         filteredVinyls = vinyls; // Inicialmente, todos los vinilos están visibles.
@@ -43,12 +44,14 @@ class _HomePageState extends State<HomePage> {
             final artist = vinyl.artist.toLowerCase();
             final tracksA = (vinyl.sideA ?? []).map((track) => track.name.toLowerCase()).toList();
             final tracksB = (vinyl.sideB ?? []).map((track) => track.name.toLowerCase()).toList();
+            final code = vinyl.code.toLowerCase();
             final lowerQuery = query.toLowerCase();
 
             return title.contains(lowerQuery) ||
                 artist.contains(lowerQuery) ||
                 tracksA.any((track) => track.contains(lowerQuery)) ||
-                tracksB.any((track) => track.contains(lowerQuery));
+                tracksB.any((track) => track.contains(lowerQuery)) ||
+                code.contains(lowerQuery);
           }).toList();
 
     setState(() {

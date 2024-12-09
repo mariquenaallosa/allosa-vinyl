@@ -22,6 +22,7 @@ class _VinylEditPageState extends State<VinylEditPage> {
   late TextEditingController artistController;
   late TextEditingController yearController;
   late TextEditingController imageUrlController;
+  late TextEditingController codeController;
 
   bool _isInitialized = false;
 
@@ -35,6 +36,7 @@ class _VinylEditPageState extends State<VinylEditPage> {
       artistController = TextEditingController(text: vinyl.artist);
       yearController = TextEditingController(text: vinyl.year?.toString() ?? '');
       imageUrlController = TextEditingController(text: vinyl.imageUrl ?? '');
+      codeController = TextEditingController(text: vinyl.code);
 
       _initializeTrackControllers();
       _isInitialized = true;
@@ -145,6 +147,11 @@ class _VinylEditPageState extends State<VinylEditPage> {
                       );
                     },
                   ),
+                ),SizedBox(height: 10),
+                // Campo para el código
+                _buildTextField(
+                  label: 'Código',
+                  controller: codeController,
                 ),
               SizedBox(height: 20),
               Text(
